@@ -64,15 +64,17 @@ app.use(morgan("dev"));
 
 // ─── Config Endpoint — tells frontend the actual backend URL ────
 app.get("/api/config", async (req, res) => {
-  const activePort = req.app.get("activePort") || process.env.PORT || 5000;
+  const backendUrl =
+    process.env.BACKEND_URL ||
+    "https://ai-train-traffic-control1-2.onrender.com";
+
   res.status(200).json({
     success: true,
     data: {
-      backendUrl: `http://localhost:${activePort}`,
-      apiUrl: `http://localhost:${activePort}/api`,
-      wsUrl: `http://localhost:${activePort}`,
-      port: activePort,
-      environment: process.env.NODE_ENV || "development",
+      backendUrl,
+      apiUrl: `${backendUrl}/api`,
+      wsUrl: backendUrl,
+      environment: process.env.NODE_ENV || "production",
       timestamp: new Date().toISOString(),
     },
   });
