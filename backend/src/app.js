@@ -34,9 +34,12 @@ app.use(helmet({ crossOriginEmbedderPolicy: false }));
 // ─── CORS — FIX: was `origin: true` (allows everyone) ────────
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: [
+      "https://ai-train-traffic-control1.vercel.app"
+    ],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
